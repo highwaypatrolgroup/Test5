@@ -486,6 +486,36 @@ tbody tr:hover{background:#ff7a1a0d}
 .sp-pumps i:nth-child(3){right:6%;width:min(30vw,140px);animation-delay:1.3s,2.3s}
 .sp-pumps .g{left:24%;bottom:12vh;width:min(12vw,52px);aspect-ratio:60/80;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 80'%3E%3Cpath d='M30 3C14 3 6 17 6 33v42l8-7 8 7 8-7 8 7 8-7 8 7V33C54 17 46 3 30 3z' fill='%23f1e8ff'/%3E%3Cellipse cx='21' cy='32' rx='4' ry='6' fill='%232a1233'/%3E%3Cellipse cx='39' cy='32' rx='4' ry='6' fill='%232a1233'/%3E%3Cellipse cx='30' cy='47' rx='5' ry='7' fill='%232a1233'/%3E%3C/svg%3E");opacity:.8;animation:rise2 1.2s ease 1.6s both,bob 4s ease-in-out 2.8s infinite alternate;filter:drop-shadow(0 0 12px #c4a2ffaa)}
 @keyframes rise2{from{opacity:0;transform:translateY(40px) scale(.7)}}
+
+/* ===== activity curves ===== */
+.act .cardh{align-items:flex-start;gap:12px;flex-wrap:wrap}
+.actw{position:relative;margin-top:4px}
+.act svg{width:100%;height:auto;display:block;overflow:visible;touch-action:pan-y;cursor:crosshair}
+.act .gl{stroke:#ffffff14;stroke-dasharray:3 6}
+.act text{fill:var(--mu);font-size:11.5px;font-family:inherit}
+.act .yt,.act .xt{font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.act .ln{fill:none;stroke:var(--c);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:actdraw 1.5s cubic-bezier(.45,0,.2,1) calc(var(--i)*.16s) forwards;filter:drop-shadow(0 0 7px var(--c))}
+@keyframes actdraw{to{stroke-dashoffset:0}}
+.act .ar{opacity:0;animation:actfade 1s ease calc(.55s + var(--i)*.16s) forwards}
+.act .ed{fill:var(--c);stroke:#0c0612;stroke-width:2;opacity:0;animation:actfade .3s ease calc(1.35s + var(--i)*.16s) forwards}
+.act .er{fill:none;stroke:var(--c);stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center;animation:actping 2.2s ease-out calc(1.6s + var(--i)*.16s) infinite}
+@keyframes actfade{to{opacity:1}}
+@keyframes actping{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(3.2)}}
+.act .xh{stroke:#ffffff55;stroke-dasharray:4 5;opacity:0;transition:opacity .15s}
+.act .hd{fill:var(--c);stroke:#0c0612;stroke-width:2;opacity:0;transition:opacity .15s;filter:drop-shadow(0 0 6px var(--c))}
+.atip{position:absolute;top:6px;left:0;pointer-events:none;opacity:0;transition:opacity .15s;background:#140a1ef5;border:1px solid var(--bd);border-radius:12px;padding:9px 12px;font-size:.78rem;white-space:nowrap;z-index:3;box-shadow:0 10px 30px #000a}
+.atip>b:first-child{display:block;margin-bottom:5px;color:var(--g1);font-size:.8rem}
+.atip div{display:flex;align-items:center;gap:7px;margin-top:3px;color:var(--mu)}.atip div b{margin-left:auto;padding-left:14px;color:var(--tx)}
+.atip i{width:9px;height:9px;border-radius:3px;display:block}
+.actempty{position:absolute;inset:0 0 46px 46px;display:grid;place-content:center;text-align:center;color:var(--tx);font-size:.9rem;pointer-events:none;padding:0 12px}
+.actempty small{display:block;margin-top:4px;color:var(--mu);font-size:.76rem}
+.alg{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:12px}
+.al{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:11px;background:#ffffff0a;border:1px solid var(--bd);color:var(--tx);font:inherit;font-size:.8rem;cursor:pointer;transition:.18s}
+.al:hover{background:#ffffff14;border-color:var(--c)}
+.al i{width:14px;height:14px;border-radius:4px;display:block;background:var(--c);box-shadow:0 0 10px var(--c)}
+.al b{font-variant-numeric:tabular-nums;color:var(--g1);min-width:1ch}
+.al.off{opacity:.45}.al.off i{background:transparent;box-shadow:none;outline:2px solid var(--c);outline-offset:-2px}.al.off span{text-decoration:line-through}
+@media(prefers-reduced-motion:reduce){.act .ln{stroke-dashoffset:0}.act .ar,.act .ed{opacity:1}.act .er{display:none}}
 </style>
 </head>
 <body>
@@ -760,16 +790,70 @@ function admin(){
  bindOut();$$("[data-t]").forEach(b=>b.onclick=()=>{tab=b.dataset.t;vAdd=false;admin()});
  ({dash,add:()=>editor(null),list:records,avi:aviPanel,viol,gen,db:dbPanel,exam:examPanel,sup:supportPanel,cfg:cfgPanel})[tab]()}
 function P(h){$("#panel").innerHTML='<div class="card">'+h+'</div>'}
+/* ACT START */
+/* ===== ACTIVITY CURVES (dashboard) ===== */
+const ACT=[["issue","New licenses","#ff7a1a"],["rdoc","Renewal requests","#b36bff"],["exam","Exam takers","#9be15d"],["renew","Renewals","#ffd24d"],["viol","Violations","#ff4d6d"]];
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],ADAY=864e5;
+let actP="week",actOff=new Set();
+const utcMs=s=>Date.UTC(+s.slice(0,4),+s.slice(5,7)-1,+s.slice(8,10));
+const actEvents=d=>{const E={issue:[],rdoc:[],exam:[],renew:[],viol:[]};
+ (d.records||[]).forEach(r=>{const h=r.hist||[];h.forEach(e=>{if(e.k==="issue"||e.k==="renew")E[e.k].push(e.d)});
+  if(!h.some(e=>e.k==="issue"||e.k==="renew")&&r.issued)E.issue.push(r.issued);
+  if(r.renewDocs&&r.renewDocs.date)E.rdoc.push(r.renewDocs.date)});
+ (d.attempts||[]).forEach(a=>a.date&&E.exam.push(a.date));
+ (d.violations||[]).forEach(v=>v.date&&E.viol.push(v.date));
+ return E};
+const actBuckets=p=>{const n=utcMs(today()),B=[];
+ if(p==="day")for(let i=13;i>=0;i--){const a=n-i*ADAY;B.push({a,b:a+ADAY})}
+ else if(p==="week"){const m=n-((new Date(n).getUTCDay()+6)%7)*ADAY;for(let i=11;i>=0;i--){const a=m-i*7*ADAY;B.push({a,b:a+7*ADAY})}}
+ else{const t=new Date(n);for(let i=11;i>=0;i--)B.push({a:Date.UTC(t.getUTCFullYear(),t.getUTCMonth()-i,1),b:Date.UTC(t.getUTCFullYear(),t.getUTCMonth()-i+1,1)})}
+ B.forEach(b=>{const x=new Date(b.a),m=MON[x.getUTCMonth()];b.l=p==="month"?m:m+" "+x.getUTCDate();b.t=p==="day"?m+" "+x.getUTCDate()+", "+x.getUTCFullYear():p==="week"?"Week of "+m+" "+x.getUTCDate():m+" "+x.getUTCFullYear()});
+ return B};
+const monoPath=P=>{const n=P.length,dx=[],m=[],t=[];if(n<2)return"";
+ for(let i=0;i<n-1;i++){dx[i]=P[i+1][0]-P[i][0];m[i]=(P[i+1][1]-P[i][1])/dx[i]}
+ t[0]=m[0];t[n-1]=m[n-2];for(let i=1;i<n-1;i++)t[i]=m[i-1]*m[i]<=0?0:(m[i-1]+m[i])/2;
+ for(let i=0;i<n-1;i++){if(m[i]===0){t[i]=0;t[i+1]=0;continue}const a=t[i]/m[i],b=t[i+1]/m[i],q=a*a+b*b;if(q>9){const k=3/Math.sqrt(q);t[i]=k*a*m[i];t[i+1]=k*b*m[i]}}
+ const f=v=>v.toFixed(1);let d="M"+f(P[0][0])+" "+f(P[0][1]);
+ for(let i=0;i<n-1;i++){const h=dx[i]/3;d+="C"+f(P[i][0]+h)+" "+f(P[i][1]+t[i]*h)+" "+f(P[i+1][0]-h)+" "+f(P[i+1][1]-t[i+1]*h)+" "+f(P[i+1][0])+" "+f(P[i+1][1])}
+ return d};
+const actHTML=d=>{
+ const E=actEvents(d),B=actBuckets(actP),n=B.length;
+ const S=ACT.map(([k,l,c])=>{const v=B.map(()=>0);E[k].forEach(x=>{const ms=utcMs(x),i=B.findIndex(b=>ms>=b.a&&ms<b.b);if(i>=0)v[i]++});return{k,l,c,v,tot:v.reduce((a,b)=>a+b,0)}});
+ const vis=S.filter(z=>!actOff.has(z.k)),mx=Math.max(4,...vis.map(z=>Math.max(...z.v))),ym=Math.ceil(mx/4)*4;
+ const pw=($("#panel")||{}).clientWidth||640,W=Math.max(300,Math.min(900,pw-44)),H=W<480?270:320,L=46,R=14,T=14,Bt=46;
+ const X=i=>L+(W-L-R)*i/(n-1),Y=v=>T+(H-T-Bt)*(1-v/ym),k=Math.max(1,Math.ceil(46/((W-L-R)/(n-1)))),all=S.reduce((a,z)=>a+z.tot,0);
+ const grid=[0,1,2,3,4].map(i=>{const v=ym/4*i,y=Y(v);return`<line class="gl" x1="${L}" x2="${W-R}" y1="${y}" y2="${y}"/><text x="${L-10}" y="${y+4}" text-anchor="end">${v}</text>`}).join("");
+ const xl=B.map((b,i)=>(n-1-i)%k===0?`<text x="${X(i)}" y="${H-Bt+20}" text-anchor="middle">${b.l}</text>`:"").join("");
+ const defs=vis.map(z=>`<linearGradient id="ag-${z.k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${z.c}" stop-opacity=".34"/><stop offset="1" stop-color="${z.c}" stop-opacity="0"/></linearGradient>`).join("");
+ const lines=vis.map((z,j)=>{const P=z.v.map((v,i)=>[X(i),Y(v)]),ln=monoPath(P);return`<g style="--c:${z.c};--i:${j}"><path class="ar" d="${ln}L${X(n-1)} ${Y(0)}L${X(0)} ${Y(0)}Z" fill="url(#ag-${z.k})"/><path class="ln" pathLength="1" d="${ln}"/><circle class="er" cx="${X(n-1)}" cy="${Y(z.v[n-1])}" r="5"/><circle class="ed" cx="${X(n-1)}" cy="${Y(z.v[n-1])}" r="4.5"/></g>`}).join("");
+ const hd=vis.map(z=>`<circle class="hd" data-k="${z.k}" r="5" style="--c:${z.c}"/>`).join("");
+ const G=esc(JSON.stringify({n,W,H,L,R,T,B:Bt,ym,t:B.map(b=>b.t),s:vis.map(z=>({k:z.k,l:z.l,c:z.c,v:z.v}))}));
+ const per={day:"Last 14 days",week:"Last 12 weeks",month:"Last 12 months"}[actP],unit={day:"day",week:"week",month:"month"}[actP];
+ return`<div class="cardh"><div><h3>Licensing activity</h3><span class="note" style="margin:0">${per} · people per ${unit}</span></div><div class="tabs" style="margin:0">${["day","week","month"].map(p=>`<button data-p="${p}" class="${p===actP?"on":""}">${p[0].toUpperCase()+p.slice(1)}</button>`).join("")}</div></div>
+ <div class="actw"><svg viewBox="0 0 ${W} ${H}" data-g="${G}" role="img" aria-label="Licensing activity per ${unit}"><defs>${defs}</defs>${grid}<text class="yt" transform="translate(12 ${(T+H-Bt)/2}) rotate(-90)" text-anchor="middle">Count</text>${xl}<text class="xt" x="${(L+W-R)/2}" y="${H-6}" text-anchor="middle">Per ${unit}</text>${lines}<line class="xh" y1="${T}" y2="${H-Bt}"/>${hd}</svg><div class="atip"></div>${all?"":'<div class="actempty">No activity in this period yet.<small>Licenses, renewals, exams and violations will appear here as they happen.</small></div>'}</div>
+ <div class="alg">${S.map(z=>`<button class="al${actOff.has(z.k)?" off":""}" data-k="${z.k}" style="--c:${z.c}"><i></i><span>= ${z.l}</span><b data-n="${z.tot}">${z.tot}</b></button>`).join("")}</div>`};
+function bindAct(d){const c=$("#actcard");if(!c)return;const re=()=>{c.innerHTML=actHTML(d);bindAct(d)};
+ $$("[data-p]",c).forEach(b=>b.onclick=()=>{actP=b.dataset.p;re()});
+ $$(".al",c).forEach(b=>b.onclick=()=>{const k=b.dataset.k;actOff.has(k)?actOff.delete(k):actOff.add(k);re()});
+ $$("[data-n]",c).forEach(e=>{const t=+e.dataset.n,t0=performance.now(),f=now=>{const p=Math.min(1,(now-t0)/1000);e.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)};e.textContent=0;requestAnimationFrame(f)});
+ const svg=$("svg",c),tip=$(".atip",c);if(!svg||!tip)return;const G=JSON.parse(svg.dataset.g),xh=$(".xh",svg);
+ const mv=e=>{const r=svg.getBoundingClientRect(),sc=G.W/r.width;let i=Math.round(((e.clientX-r.left)*sc-G.L)/(G.W-G.L-G.R)*(G.n-1));i=Math.max(0,Math.min(G.n-1,i));
+  const x=G.L+(G.W-G.L-G.R)*i/(G.n-1);xh.setAttribute("x1",x);xh.setAttribute("x2",x);xh.style.opacity=1;
+  $$(".hd",svg).forEach(h=>{const z=G.s.find(q=>q.k===h.dataset.k);h.setAttribute("cx",x);h.setAttribute("cy",G.T+(G.H-G.T-G.B)*(1-z.v[i]/G.ym));h.style.opacity=1});
+  tip.innerHTML="<b>"+esc(G.t[i])+"</b>"+G.s.map(z=>`<div><i style="background:${z.c}"></i>${esc(z.l)} <b>${z.v[i]}</b></div>`).join("");
+  tip.style.opacity=1;const w=tip.offsetWidth;tip.style.left=Math.max(4,Math.min(r.width-w-4,x/sc-w/2))+"px"};
+ const lv=()=>{xh.style.opacity=0;tip.style.opacity=0;$$(".hd",svg).forEach(h=>h.style.opacity=0)};
+ svg.addEventListener("pointermove",mv);svg.addEventListener("pointerdown",mv);svg.addEventListener("pointerleave",lv)}
+/* ACT END */
 function dash(){
  const d=load(),R=d.records,now=Date.now(),soon=R.filter(r=>r.expiry&&new Date(r.expiry)>now&&new Date(r.expiry)-now<7776e6).length,c=s=>R.filter(r=>r.status===s).length,unp=d.violations.length;
  const rec=[...R].sort((a,b)=>b.id-a.id).slice(0,6);
  $("#panel").innerHTML=`<div class="kpis">${[["list","Total licenses",R.length],["wl","Active",c("Active")],["clock","Pending",c("Pending")],["cal","Expiring in 90 days",soon],["viol","Violations on record",unp]].map(x=>`<div class="kpi"><i>${svg(x[0])}</i><div><b>${x[2]}</b><span>${x[1]}</span></div></div>`).join("")}</div>
  ${pendRev(d).length?revCard(d):""}
- <div class="card"><div class="cardh"><h3>License status overview</h3></div><div class="dist">${R.length?STAT.map(s=>`<i style="width:${c(s)/R.length*100}%;background:${COL[s]}"></i>`).join(""):""}</div>
- <div class="legend">${STAT.map(s=>`<span><span class="dot" style="background:${COL[s]}"></span>${s} <b>${c(s)}</b></span>`).join("")}</div></div>
+ <div class="card act" id="actcard">${actHTML(d)}</div>
  <div class="card"><div class="cardh"><h3>Recently added</h3><button class="btn sm" id="n">+ Add license</button></div>
  ${rec.length?T(["Username","License No.","Codes","Status",""],rec.map(r=>[`<div class="tn"><span class="av">${esc(ini(r.name))}</span>${esc(r.name)||"Username pending"}</div>`,`<span class="num">${esc(r.licenseNo)||"—"}</span>`,esc((r.restr||[]).join(", "))||"—",`<span class="pill ${esc(r.status)}">${esc(r.status)}</span>`,`<button class="btn ghost sm" data-i="${r.id}">View</button>`])):'<div class="empty">No licenses yet. Add your first one.</div>'}</div>`;
- bindRev();$("#n").onclick=()=>{tab="add";admin()};$$("[data-i]").forEach(b=>b.onclick=()=>info(+b.dataset.i))}
+ bindAct(d);bindRev();$("#n").onclick=()=>{tab="add";admin()};$$("[data-i]").forEach(b=>b.onclick=()=>info(+b.dataset.i))}
 function gen(){
  P(`<p class="note" style="margin:0 0 14px">Format: DL + 3 digits, 2 digits, 3 digits. New licenses also get a number automatically.</p><div id="out2"></div>
  <div class="tools"><button class="btn" id="g5">Generate 5 numbers</button><button class="btn ghost" id="gu">Use first in a new license</button></div>`);
@@ -794,7 +878,7 @@ function records(){
  $$("[data-d]").forEach(b=>b.onclick=()=>{if(!confirm("Delete this license record?"))return;const x=load(),dr=x.records.find(r=>r.id===+b.dataset.d);x.records=x.records.filter(r=>r.id!==+b.dataset.d);if(dr)x.violations=x.violations.filter(v=>norm(v.licenseNo||"")!==norm(dr.licenseNo||""));save(x);toast("Deleted");admin()})}
 function renew(id,m){const x=load(),i=x.records.findIndex(r=>r.id===id);if(i<0)return;const r=x.records[i],n=x.violations.filter(v=>norm(v.licenseNo||"")===norm(r.licenseNo||"")).length;
  if(!confirm("Renew "+(r.name||r.licenseNo)+"?\n\nThis sets a new "+VALID_MONTHS+"-month expiry, marks the license Active, and clears "+n+" violation(s) and all demerit points."))return;
- r.issued=today();r.expiry=addM(r.issued,VALID_MONTHS);r.status="Active";r.baseStatus="Active";delete r.renewOk;x.violations=x.violations.filter(v=>norm(v.licenseNo||"")!==norm(r.licenseNo||""));save(x);toast("License renewed");if(m)m.remove();admin();if(m)info(id)}
+ (r.hist=r.hist||[]).push({k:"renew",d:today()});r.issued=today();r.expiry=addM(r.issued,VALID_MONTHS);r.status="Active";r.baseStatus="Active";delete r.renewOk;x.violations=x.violations.filter(v=>norm(v.licenseNo||"")!==norm(r.licenseNo||""));save(x);toast("License renewed");if(m)m.remove();admin();if(m)info(id)}
 const readFile=f=>new Promise((ok,no)=>{const x=new FileReader();x.onload=()=>ok(x.result);x.onerror=no;x.readAsDataURL(f)});
 /* turns a white / light paper background into transparency (skipped when the image is already transparent) */
 function unwhite(cv){const c=cv.getContext("2d"),w=cv.width,h=cv.height,im=c.getImageData(0,0,w,h),d=im.data;let t=0;for(let i=3;i<d.length;i+=4)if(d[i]<200)t++;if(t>d.length/4*.02)return;
@@ -915,7 +999,7 @@ function editor(id){
   if(x.records.some(y=>y.id!==o.id&&norm(y.licenseNo||"")===norm(o.licenseNo)))return toast("That license number already exists");
   const i=x.records.findIndex(y=>y.id===o.id);
   if(i>=0&&old&&norm(old.licenseNo)!==norm(o.licenseNo))x.violations.forEach(v=>{if(norm(v.licenseNo)===norm(old.licenseNo))v.licenseNo=o.licenseNo});
-  i>=0?x.records[i]=o:x.records.push(o);
+  o.hist=[...((old&&old.hist)||[])];if(o.issued&&!(old&&old.issued))o.hist.push({k:"issue",d:o.issued});i>=0?x.records[i]=o:x.records.push(o);
   if(o.email&&!x.whitelist.includes(o.email))x.whitelist.push(o.email);
   try{save(x)}catch{return toast("Storage is full. Use smaller images.")}toast("License saved");tab="list";admin();if(!old)info(o.id,true)}}
 
