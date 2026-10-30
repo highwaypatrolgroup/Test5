@@ -516,6 +516,17 @@ tbody tr:hover{background:#ff7a1a0d}
 .al b{font-variant-numeric:tabular-nums;color:var(--g1);min-width:1ch}
 .al.off{opacity:.45}.al.off i{background:transparent;box-shadow:none;outline:2px solid var(--c);outline-offset:-2px}.al.off span{text-decoration:line-through}
 @media(prefers-reduced-motion:reduce){.act .ln{stroke-dashoffset:0}.act .ar,.act .ed{opacity:1}.act .er{display:none}}
+
+/* portal buttons: one long row each on PC, matching the Digital ID bar */
+@media(min-width:760px){
+ .ptiles{grid-template-columns:1fr;gap:12px;margin-top:14px}
+ .ptile,.ptile.wide{grid-column:auto;flex-direction:row;align-items:center;gap:16px;padding:16px 20px;border-radius:22px}
+ .ptile>span:not(.pico){flex:1;min-width:0}
+ .ptile .pico{width:56px;height:56px;flex:none}
+ .ptile b{font-size:1.2rem;letter-spacing:.1em}.ptile small{font-size:.82rem;margin-top:4px}
+ .ptile:after{content:"";flex:none;width:10px;height:10px;margin:0 6px 0 auto;border-right:3px solid var(--g1);border-top:3px solid var(--g1);transform:rotate(45deg);transition:transform .25s}
+ .ptile:hover{transform:translateY(-3px)}.ptile:hover:after{transform:translateX(5px) rotate(45deg)}
+}
 </style>
 </head>
 <body>
