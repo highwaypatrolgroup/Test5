@@ -527,6 +527,44 @@ tbody tr:hover{background:#ff7a1a0d}
  .ptile:after{content:"";flex:none;width:10px;height:10px;margin:0 6px 0 auto;border-right:3px solid var(--g1);border-top:3px solid var(--g1);transform:rotate(45deg);transition:transform .25s}
  .ptile:hover{transform:translateY(-3px)}.ptile:hover:after{transform:translateX(5px) rotate(45deg)}
 }
+
+/* ===== exam question editor (own screen) ===== */
+body.xlock{overflow:hidden}
+#xov{position:fixed;inset:0;z-index:8;display:flex;flex-direction:column;background:radial-gradient(60% 40% at 12% 0%,#7a2a0e55,transparent),radial-gradient(50% 40% at 92% 100%,#5b21b655,transparent),#0c0612;animation:xin .28s ease both}
+@keyframes xin{from{opacity:0;transform:translateY(16px)}}
+.xhead{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:calc(14px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) 14px max(20px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--bd);background:#0c0612d9;backdrop-filter:blur(14px)}
+.xt{flex:1;min-width:180px}.xt h2{margin:0;font-size:1.55rem;line-height:1.1}.xt small{color:var(--mu)}
+.xact{display:flex;gap:8px;flex-wrap:wrap}
+.xbody{flex:1;overflow:auto;padding:18px 20px calc(36px + env(safe-area-inset-bottom,0px));width:100%;max-width:1120px;margin:0 auto}
+.xwarn{padding:12px 14px;border-radius:12px;background:#ff4d6d1a;border:1px solid #ff4d6d55;color:#ffc2cd;font-size:.88rem;margin-bottom:14px}
+.xtools{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;margin-bottom:16px}.xtools .fld{flex:1 1 260px;margin:0;min-width:0}
+.xchips{display:flex;gap:8px;flex-wrap:wrap}
+.xchips button{font:inherit;font-size:.84rem;padding:9px 16px;border-radius:999px;border:1px solid var(--bd);background:#ffffff0a;color:var(--tx);cursor:pointer;transition:.18s}
+.xchips button:hover{border-color:var(--pr2)}.xchips button.on{background:linear-gradient(135deg,#c2410c,#ff7a1a);color:#1c0a02;border-color:transparent;font-weight:700}
+.xgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.xq{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:18px;background:#1b0e26d9;border:1px solid var(--bd);box-shadow:0 10px 28px #0006;transition:transform .2s,border-color .2s}
+.xq:hover{transform:translateY(-2px);border-color:#ff9a2e66}
+.xqh{display:flex;align-items:center;justify-content:space-between}.xn{color:var(--mu);font-size:.8rem;font-variant-numeric:tabular-nums}
+.xq>p{margin:0;font-weight:600;line-height:1.45}
+.xo{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.xo li{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:10px;background:#ffffff08;font-size:.88rem;color:var(--mu);line-height:1.35}
+.xo li b{flex:none;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;background:#ffffff12;font-size:.74rem;color:var(--tx)}
+.xo li.ok{background:#9be15d1a;color:var(--tx);box-shadow:inset 0 0 0 1px #9be15d66}.xo li.ok b{background:#9be15d;color:#10200a}
+.xqa{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+.xsb{position:absolute;inset:0;z-index:2;display:grid;place-items:center;padding:16px;background:#06020bcc;backdrop-filter:blur(6px);animation:xin .2s ease both}
+.xsheet{width:min(560px,100%);max-height:100%;overflow:auto;padding:22px;border-radius:22px;background:#1a0d24;border:1px solid #ff9a2e55;box-shadow:0 30px 80px #000c,0 0 40px #ff7a1a22}
+.xsheet h3{margin:0 0 14px;font-size:1.5rem}
+.xl{display:block;margin:14px 0 6px;color:var(--pr2);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+.xin{width:100%;font:inherit;color:var(--tx);background:#12081caa;border:1px solid var(--bd);border-radius:12px;padding:12px 14px;outline:none;resize:vertical}
+.xin:focus{border-color:var(--pr2);box-shadow:0 0 0 4px #ff7a1a33}
+.xcats{display:flex;gap:8px;flex-wrap:wrap}.xcats label{cursor:pointer}.xcats input,.xr input{position:absolute;opacity:0;pointer-events:none}
+.xcats span{display:block;padding:9px 16px;border-radius:999px;border:1px solid var(--bd);background:#ffffff0a;font-size:.86rem}
+.xcats input:checked+span{background:linear-gradient(135deg,#c2410c,#ff7a1a);color:#1c0a02;font-weight:700;border-color:transparent}
+.xcats input:focus-visible+span,.xr input:focus-visible+span{outline:2px solid var(--pr2);outline-offset:2px}
+.xopt{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.xr{cursor:pointer;flex:none}.xr span{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;border:1px solid var(--bd);background:#ffffff0a;font-weight:700;transition:.18s}
+.xr input:checked+span{background:#9be15d;color:#10200a;border-color:transparent;box-shadow:0 0 16px #9be15d66}
+@media(max-width:560px){.xgrid{grid-template-columns:1fr}.xact{width:100%}.xact .btn{flex:1}.xsb{padding:0;place-items:end center}.xsheet{border-radius:22px 22px 0 0;width:100%}}
 </style>
 </head>
 <body>
@@ -563,8 +601,8 @@ const sget=(st,k)=>{try{return window[st].getItem(k)}catch{return mem[st+k]??nul
 const sset=(st,k,v)=>{try{window[st].setItem(k,v)}catch{mem[st+k]=v}};
 const sdel=(st,k)=>{try{window[st].removeItem(k)}catch{delete mem[st+k]}};
 const DEFSET=()=>({dName:"",dTitle:"Transportation Director",dSig:"",aName:"",aTitle:"Aviation Unit Director",aSig:""});
-const blank=()=>({chats:{},whitelist:[],staff:[],accounts:{},records:[],violations:[],attempts:[],examCfg:{pass:24},pilots:[],settings:DEFSET()});
-const live=d=>{d.settings=Object.assign(DEFSET(),d.settings||{});d.violations=d.violations||[];d.attempts=d.attempts||[];d.examCfg=Object.assign({pass:24},d.examCfg||{});d.staff=d.staff||[];d.pilots=d.pilots||[];d.chats=d.chats||{};const now=Date.now();d.records.forEach(r=>{r.baseStatus=r.status;if(r.expiry&&r.status!=="Revoked"&&new Date(r.expiry+"T23:59:59")<now)r.status="Expired"});return d};
+const blank=()=>({chats:{},whitelist:[],staff:[],officers:[],accounts:{},records:[],violations:[],attempts:[],examCfg:{pass:24},pilots:[],settings:DEFSET()});
+const live=d=>{d.settings=Object.assign(DEFSET(),d.settings||{});d.violations=d.violations||[];d.attempts=d.attempts||[];d.examCfg=Object.assign({pass:24},d.examCfg||{});d.staff=d.staff||[];d.officers=d.officers||[];d.pilots=d.pilots||[];d.chats=d.chats||{};const now=Date.now();d.records.forEach(r=>{r.baseStatus=r.status;if(r.expiry&&r.status!=="Revoked"&&new Date(r.expiry+"T23:59:59")<now)r.status="Expired"});return d};
 /* ===== SHARED DATABASE + LOGIN (Firebase Firestore + Authentication) =====
    Every record, chat, etc. is its own small document (JSON stored as a string in field "j").
    Passwords are handled by Firebase Authentication - they are never stored in the database.
@@ -585,6 +623,7 @@ function shardsOf(c){const o={},put=(path,k,n,v,e)=>{o[path]={k:k,n:n||"",j:JSON
  Object.keys(c.chats||{}).forEach(n=>put("chats/"+mid(n),"chats",n,c.chats[n],n));
  (c.whitelist||[]).forEach(e=>put("wl/"+mid(e),"wl",e,{}));
  (c.staff||[]).forEach(e=>put("staff/"+mid(e),"staff",e,{}));
+ (c.officers||[]).forEach(e=>put("staff/"+mid(e),"staff",e,{s:"viol"}));
  Object.keys(c.accounts||{}).forEach(e=>put("acct/"+mid(e),"acct",e,c.accounts[e],e));
  const st=JSON.stringify(Object.assign(DEFSET(),c.settings||{})),ec=JSON.stringify(Object.assign({pass:24},c.examCfg||{}));
  if(st!==DEFJ["cfg/settings"])put("cfg/settings","settings","",JSON.parse(st));
@@ -595,7 +634,7 @@ function shardsOf(c){const o={},put=(path,k,n,v,e)=>{o[path]={k:k,n:n||"",j:JSON
 function build(){const d=blank(),L={records:[],pilots:[],violations:[],attempts:[]};
  for(const id in SH){const s=SH[id];let v;try{v=JSON.parse(s.j)}catch{continue}
   switch(s.k){case"records":case"pilots":case"violations":case"attempts":L[s.k].push(v);break;
-   case"chats":d.chats[s.n]=v;break;case"wl":d.whitelist.push(s.n);break;case"staff":d.staff.push(s.n);break;
+   case"chats":d.chats[s.n]=v;break;case"wl":d.whitelist.push(s.n);break;case"staff":(v&&v.s==="viol"?d.officers:d.staff).push(s.n);break;
    case"acct":d.accounts[s.n]=v;break;case"settings":d.settings=v;break;case"examcfg":d.examCfg=v;break;case"exam":d.exam=v;break;case"faq":d.faq=v}}
  for(const k in L)d[k]=L[k].sort((a,b)=>(a.id||0)-(b.id||0));
  return d}
@@ -614,6 +653,7 @@ function stopSync(){UNSUB.forEach(f=>{try{f()}catch{}});UNSUB=[];SH={};DB=blank(
 function startSync(role,email){stopSync();
  const C=n=>FS.collection(n),refs=[];
  if(role==="licensee")refs.push(C("records").where("e","==",email),C("attempts").where("e","==",email),C("violations").where("e","==",email),C("cfg"),FS.doc("chats/"+mid(email)),FS.doc("wl/"+mid(email)),FS.doc("acct/"+mid(email)));
+ else if(role==="officer")["records","violations","cfg","staff"].forEach(n=>refs.push(C(n)));
  else["records","pilots","violations","attempts","chats","wl","staff","acct","cfg"].forEach(n=>refs.push(C(n)));
  return new Promise(res=>{let pending=refs.length,done=false;const one=()=>{if(!done&&--pending<=0){done=true;res()}};
   refs.forEach(ref=>{let first=true;
@@ -645,7 +685,7 @@ async function resolveRole(u){const em=(u.email||"").toLowerCase();
  if(!u.emailVerified)return{err:"verify"};
  const dn=u.displayName||"";
  try{
-  if((await FS.doc("staff/"+mid(em)).get()).exists){await ensureAcct(em,"staff");return{role:"staff",email:em}}
+  {const sd=await FS.doc("staff/"+mid(em)).get();if(sd.exists){let sc="";try{sc=JSON.parse(sd.data().j).s}catch{}const ro=sc==="viol"?"officer":"staff";await ensureAcct(em,ro);return{role:ro,email:em}}}
   if(dn==="PENDING_STAFF")return{err:"nostaff"};
   if((await FS.doc("wl/"+mid(em)).get()).exists){await ensureAcct(em,"licensee");return{role:"licensee",email:em}}
   if(dn.indexOf("PENDING:")===0)return await claim(u,em,dn.slice(8));
@@ -671,8 +711,8 @@ function fail(m){const e=$("#err");e.textContent=m;const b=$(".box");b.classList
 function view(h){const a=$("#app");a.innerHTML=h}
 
 let screen="login";
-function render(){const s=sess();if(!s)return screen==="signup"?signup():login();
- const d=load(),gone=s.role==="staff"?!d.staff.includes(s.email):s.role==="licensee"?!d.whitelist.includes(s.email):false;
+function render(){{const o=document.getElementById("xov");if(o){o.remove();document.body.classList.remove("xlock")}}const s=sess();if(!s)return screen==="signup"?signup():login();
+ const d=load(),gone=s.role==="staff"?!d.staff.includes(s.email):s.role==="officer"?!d.officers.includes(s.email):s.role==="licensee"?!d.whitelist.includes(s.email):false;
  if(gone){setSess(null);screen="login";login();return toast("Your access has been removed. Contact the administrator.")}
  s.role==="licensee"?portal(s.email):admin()}
 
@@ -791,21 +831,20 @@ const meter=n=>{const s=standing(n);return`<div class="dist"><i style="width:${M
 
 function admin(){
  const S0=sess()||{};if(S0.role==="staff"&&!load().staff.includes(S0.email))return render();
+ if(S0.role==="officer"&&!load().officers.includes(S0.email))return render();
  if(tab==="sup"&&stSel)supMark(stSel);
- const own=S0.role==="admin",nav=NAV.filter(n=>own||(n[0]!=="cfg"&&n[0]!=="db"));if(!nav.some(n=>n[0]===tab))tab="dash";
+ const own=S0.role==="admin",off=S0.role==="officer",nav=NAV.filter(n=>off?n[0]==="viol":own||(n[0]!=="cfg"&&n[0]!=="db"));if(!nav.some(n=>n[0]===tab))tab=nav[0][0];
  const cur=NAV.find(n=>n[0]===tab);
  view(`<div class="shell"><aside class="side"><div class="brand"><img src="${LOGO}" alt=""><div><b>TRANSPORTATION OFFICE</b><small>LMS PORTAL</small></div></div>
  <nav class="nav">${nav.map(n=>`<button data-t="${n[0]}" class="${tab===n[0]?"on":""}">${svg(n[0])}<span>${n[1]}</span>${n[0]==="sup"&&supUnread(load())?`<em class="bdg">${supUnread(load())}</em>`:""}${n[0]==="exam"&&pendRev(load()).length?`<em class="bdg">${pendRev(load()).length}</em>`:""}</button>`).join("")}</nav>
- <div class="who"><span class="av">${own?"AD":"ST"}</span><div><b>${own?"Administrator":"Staff"}</b><br><small style="color:var(--mu)">${own?"Full access":esc(S0.email)}</small></div></div></aside>
+ <div class="who"><span class="av">${own?"AD":off?"VO":"ST"}</span><div><b>${own?"Administrator":off?"Violation officer":"Staff"}</b><br><small style="color:var(--mu)">${own?"Full access":esc(S0.email)}</small></div></div></aside>
  <main><div class="head"><div><img class="mlogo" src="${LOGO}" alt=""><div><h2>${cur[2]}</h2><small>${new Date().toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"})}</small></div></div><button class="btn ghost sm" id="out">Log out</button></div><div id="panel" class="in"></div></main></div>`);
  bindOut();$$("[data-t]").forEach(b=>b.onclick=()=>{tab=b.dataset.t;vAdd=false;admin()});
  ({dash,add:()=>editor(null),list:records,avi:aviPanel,viol,gen,db:dbPanel,exam:examPanel,sup:supportPanel,cfg:cfgPanel})[tab]()}
 function P(h){$("#panel").innerHTML='<div class="card">'+h+'</div>'}
 /* ACT START */
-/* ===== ACTIVITY CURVES (dashboard) ===== */
-const ACT=[["issue","New licenses","#ff7a1a"],["rdoc","Renewal requests","#b36bff"],["exam","Exam takers","#9be15d"],["renew","Renewals","#ffd24d"],["viol","Violations","#ff4d6d"]];
+/* ===== CURVE CHARTS (dashboard): licence overview + licensing activity ===== */
 const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],ADAY=864e5;
-let actP="week",actOff=new Set();
 const utcMs=s=>Date.UTC(+s.slice(0,4),+s.slice(5,7)-1,+s.slice(8,10));
 const actEvents=d=>{const E={issue:[],rdoc:[],exam:[],renew:[],viol:[]};
  (d.records||[]).forEach(r=>{const h=r.hist||[];h.forEach(e=>{if(e.k==="issue"||e.k==="renew")E[e.k].push(e.d)});
@@ -814,6 +853,16 @@ const actEvents=d=>{const E={issue:[],rdoc:[],exam:[],renew:[],viol:[]};
  (d.attempts||[]).forEach(a=>a.date&&E.exam.push(a.date));
  (d.violations||[]).forEach(v=>v.date&&E.viol.push(v.date));
  return E};
+const staEvents=d=>{const E={all:[],Active:[],Suspended:[],Revoked:[],Alarmed:[]};
+ (d.records||[]).forEach(r=>{if(!r.issued)return;E.all.push(r.issued);if(E[r.status])E[r.status].push(r.issued)});return E};
+const staTot=d=>{const R=d.records||[],o={all:R.length};["Active","Suspended","Revoked","Alarmed"].forEach(k=>o[k]=R.filter(r=>r.status===k).length);return o};
+const CH={
+ sta:{id:"stacard",title:"License overview",ev:staEvents,tot:staTot,p:"month",off:new Set(),
+  sub:(per,u)=>per+" · licenses issued per "+u+", by current status",
+  series:[["all","Total licenses","#ff7a1a"],["Active","Active","#9be15d"],["Suspended","Suspended","#ffd24d"],["Revoked","Revoked","#b36bff"],["Alarmed","Alarmed","#ff4d6d"]]},
+ act:{id:"actcard",title:"Licensing activity",ev:actEvents,p:"week",off:new Set(),
+  sub:(per,u)=>per+" · people per "+u,
+  series:[["issue","New licenses","#ff7a1a"],["rdoc","Renewal requests","#b36bff"],["exam","Exam takers","#9be15d"],["renew","Renewals","#ffd24d"],["viol","Violations","#ff4d6d"]]}};
 const actBuckets=p=>{const n=utcMs(today()),B=[];
  if(p==="day")for(let i=13;i>=0;i--){const a=n-i*ADAY;B.push({a,b:a+ADAY})}
  else if(p==="week"){const m=n-((new Date(n).getUTCDay()+6)%7)*ADAY;for(let i=11;i>=0;i--){const a=m-i*7*ADAY;B.push({a,b:a+7*ADAY})}}
@@ -827,44 +876,44 @@ const monoPath=P=>{const n=P.length,dx=[],m=[],t=[];if(n<2)return"";
  const f=v=>v.toFixed(1);let d="M"+f(P[0][0])+" "+f(P[0][1]);
  for(let i=0;i<n-1;i++){const h=dx[i]/3;d+="C"+f(P[i][0]+h)+" "+f(P[i][1]+t[i]*h)+" "+f(P[i+1][0]-h)+" "+f(P[i+1][1]-t[i+1]*h)+" "+f(P[i+1][0])+" "+f(P[i+1][1])}
  return d};
-const actHTML=d=>{
- const E=actEvents(d),B=actBuckets(actP),n=B.length;
- const S=ACT.map(([k,l,c])=>{const v=B.map(()=>0);E[k].forEach(x=>{const ms=utcMs(x),i=B.findIndex(b=>ms>=b.a&&ms<b.b);if(i>=0)v[i]++});return{k,l,c,v,tot:v.reduce((a,b)=>a+b,0)}});
- const vis=S.filter(z=>!actOff.has(z.k)),mx=Math.max(4,...vis.map(z=>Math.max(...z.v))),ym=Math.ceil(mx/4)*4;
+const chartHTML=(d,C)=>{
+ const E=C.ev(d),B=actBuckets(C.p),n=B.length,TT=C.tot?C.tot(d):null;
+ const S=C.series.map(([k,l,c])=>{const v=B.map(()=>0);(E[k]||[]).forEach(x=>{const ms=utcMs(x),i=B.findIndex(b=>ms>=b.a&&ms<b.b);if(i>=0)v[i]++});const win=v.reduce((a,b)=>a+b,0);return{k,l,c,v,win,tot:TT?TT[k]:win}});
+ const vis=S.filter(z=>!C.off.has(z.k)),mx=Math.max(4,...vis.map(z=>Math.max(...z.v))),ym=Math.ceil(mx/4)*4;
  const pw=($("#panel")||{}).clientWidth||640,W=Math.max(300,Math.min(900,pw-44)),H=W<480?270:320,L=46,R=14,T=14,Bt=46;
- const X=i=>L+(W-L-R)*i/(n-1),Y=v=>T+(H-T-Bt)*(1-v/ym),k=Math.max(1,Math.ceil(46/((W-L-R)/(n-1)))),all=S.reduce((a,z)=>a+z.tot,0);
+ const X=i=>L+(W-L-R)*i/(n-1),Y=v=>T+(H-T-Bt)*(1-v/ym),k=Math.max(1,Math.ceil(46/((W-L-R)/(n-1)))),all=S.reduce((a,z)=>a+z.win,0);
  const grid=[0,1,2,3,4].map(i=>{const v=ym/4*i,y=Y(v);return`<line class="gl" x1="${L}" x2="${W-R}" y1="${y}" y2="${y}"/><text x="${L-10}" y="${y+4}" text-anchor="end">${v}</text>`}).join("");
  const xl=B.map((b,i)=>(n-1-i)%k===0?`<text x="${X(i)}" y="${H-Bt+20}" text-anchor="middle">${b.l}</text>`:"").join("");
- const defs=vis.map(z=>`<linearGradient id="ag-${z.k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${z.c}" stop-opacity=".34"/><stop offset="1" stop-color="${z.c}" stop-opacity="0"/></linearGradient>`).join("");
- const lines=vis.map((z,j)=>{const P=z.v.map((v,i)=>[X(i),Y(v)]),ln=monoPath(P);return`<g style="--c:${z.c};--i:${j}"><path class="ar" d="${ln}L${X(n-1)} ${Y(0)}L${X(0)} ${Y(0)}Z" fill="url(#ag-${z.k})"/><path class="ln" pathLength="1" d="${ln}"/><circle class="er" cx="${X(n-1)}" cy="${Y(z.v[n-1])}" r="5"/><circle class="ed" cx="${X(n-1)}" cy="${Y(z.v[n-1])}" r="4.5"/></g>`}).join("");
+ const defs=vis.map(z=>`<linearGradient id="ag-${C.id}-${z.k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${z.c}" stop-opacity=".34"/><stop offset="1" stop-color="${z.c}" stop-opacity="0"/></linearGradient>`).join("");
+ const lines=vis.map((z,j)=>{const P=z.v.map((v,i)=>[X(i),Y(v)]),ln=monoPath(P);return`<g style="--c:${z.c};--i:${j}"><path class="ar" d="${ln}L${X(n-1)} ${Y(0)}L${X(0)} ${Y(0)}Z" fill="url(#ag-${C.id}-${z.k})"/><path class="ln" pathLength="1" d="${ln}"/><circle class="er" cx="${X(n-1)}" cy="${Y(z.v[n-1])}" r="5"/><circle class="ed" cx="${X(n-1)}" cy="${Y(z.v[n-1])}" r="4.5"/></g>`}).join("");
  const hd=vis.map(z=>`<circle class="hd" data-k="${z.k}" r="5" style="--c:${z.c}"/>`).join("");
  const G=esc(JSON.stringify({n,W,H,L,R,T,B:Bt,ym,t:B.map(b=>b.t),s:vis.map(z=>({k:z.k,l:z.l,c:z.c,v:z.v}))}));
- const per={day:"Last 14 days",week:"Last 12 weeks",month:"Last 12 months"}[actP],unit={day:"day",week:"week",month:"month"}[actP];
- return`<div class="cardh"><div><h3>Licensing activity</h3><span class="note" style="margin:0">${per} · people per ${unit}</span></div><div class="tabs" style="margin:0">${["day","week","month"].map(p=>`<button data-p="${p}" class="${p===actP?"on":""}">${p[0].toUpperCase()+p.slice(1)}</button>`).join("")}</div></div>
- <div class="actw"><svg viewBox="0 0 ${W} ${H}" data-g="${G}" role="img" aria-label="Licensing activity per ${unit}"><defs>${defs}</defs>${grid}<text class="yt" transform="translate(12 ${(T+H-Bt)/2}) rotate(-90)" text-anchor="middle">Count</text>${xl}<text class="xt" x="${(L+W-R)/2}" y="${H-6}" text-anchor="middle">Per ${unit}</text>${lines}<line class="xh" y1="${T}" y2="${H-Bt}"/>${hd}</svg><div class="atip"></div>${all?"":'<div class="actempty">No activity in this period yet.<small>Licenses, renewals, exams and violations will appear here as they happen.</small></div>'}</div>
- <div class="alg">${S.map(z=>`<button class="al${actOff.has(z.k)?" off":""}" data-k="${z.k}" style="--c:${z.c}"><i></i><span>= ${z.l}</span><b data-n="${z.tot}">${z.tot}</b></button>`).join("")}</div>`};
-function bindAct(d){const c=$("#actcard");if(!c)return;const re=()=>{c.innerHTML=actHTML(d);bindAct(d)};
- $$("[data-p]",c).forEach(b=>b.onclick=()=>{actP=b.dataset.p;re()});
- $$(".al",c).forEach(b=>b.onclick=()=>{const k=b.dataset.k;actOff.has(k)?actOff.delete(k):actOff.add(k);re()});
+ const per={day:"Last 14 days",week:"Last 12 weeks",month:"Last 12 months"}[C.p],unit=C.p;
+ return`<div class="cardh"><div><h3>${C.title}</h3><span class="note" style="margin:0">${C.sub(per,unit)}</span></div><div class="tabs" style="margin:0">${["day","week","month"].map(p=>`<button data-p="${p}" class="${p===C.p?"on":""}">${p[0].toUpperCase()+p.slice(1)}</button>`).join("")}</div></div>
+ <div class="actw"><svg viewBox="0 0 ${W} ${H}" data-g="${G}" role="img" aria-label="${C.title} per ${unit}"><defs>${defs}</defs>${grid}<text class="yt" transform="translate(12 ${(T+H-Bt)/2}) rotate(-90)" text-anchor="middle">Count</text>${xl}<text class="xt" x="${(L+W-R)/2}" y="${H-6}" text-anchor="middle">Per ${unit}</text>${lines}<line class="xh" y1="${T}" y2="${H-Bt}"/>${hd}</svg><div class="atip"></div>${all?"":'<div class="actempty">No activity in this period yet.<small>Data will appear here as licenses are issued and updated.</small></div>'}</div>
+ <div class="alg">${S.map(z=>`<button class="al${C.off.has(z.k)?" off":""}" data-k="${z.k}" style="--c:${z.c}"><i></i><span>= ${z.l}</span><b data-n="${z.tot}">${z.tot}</b></button>`).join("")}</div>`};
+function bindChart(d,C){const c=$("#"+C.id);if(!c)return;const re=()=>{c.innerHTML=chartHTML(d,C);bindChart(d,C)};
+ $$("[data-p]",c).forEach(b=>b.onclick=()=>{C.p=b.dataset.p;re()});
+ $$(".al",c).forEach(b=>b.onclick=()=>{const k=b.dataset.k;C.off.has(k)?C.off.delete(k):C.off.add(k);re()});
  $$("[data-n]",c).forEach(e=>{const t=+e.dataset.n,t0=performance.now(),f=now=>{const p=Math.min(1,(now-t0)/1000);e.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)};e.textContent=0;requestAnimationFrame(f)});
- const svg=$("svg",c),tip=$(".atip",c);if(!svg||!tip)return;const G=JSON.parse(svg.dataset.g),xh=$(".xh",svg);
- const mv=e=>{const r=svg.getBoundingClientRect(),sc=G.W/r.width;let i=Math.round(((e.clientX-r.left)*sc-G.L)/(G.W-G.L-G.R)*(G.n-1));i=Math.max(0,Math.min(G.n-1,i));
+ const sv=$("svg",c),tip=$(".atip",c);if(!sv||!tip)return;const G=JSON.parse(sv.dataset.g),xh=$(".xh",sv);
+ const mv=e=>{const r=sv.getBoundingClientRect(),sc=G.W/r.width;let i=Math.round(((e.clientX-r.left)*sc-G.L)/(G.W-G.L-G.R)*(G.n-1));i=Math.max(0,Math.min(G.n-1,i));
   const x=G.L+(G.W-G.L-G.R)*i/(G.n-1);xh.setAttribute("x1",x);xh.setAttribute("x2",x);xh.style.opacity=1;
-  $$(".hd",svg).forEach(h=>{const z=G.s.find(q=>q.k===h.dataset.k);h.setAttribute("cx",x);h.setAttribute("cy",G.T+(G.H-G.T-G.B)*(1-z.v[i]/G.ym));h.style.opacity=1});
+  $$(".hd",sv).forEach(h=>{const z=G.s.find(q=>q.k===h.dataset.k);h.setAttribute("cx",x);h.setAttribute("cy",G.T+(G.H-G.T-G.B)*(1-z.v[i]/G.ym));h.style.opacity=1});
   tip.innerHTML="<b>"+esc(G.t[i])+"</b>"+G.s.map(z=>`<div><i style="background:${z.c}"></i>${esc(z.l)} <b>${z.v[i]}</b></div>`).join("");
   tip.style.opacity=1;const w=tip.offsetWidth;tip.style.left=Math.max(4,Math.min(r.width-w-4,x/sc-w/2))+"px"};
- const lv=()=>{xh.style.opacity=0;tip.style.opacity=0;$$(".hd",svg).forEach(h=>h.style.opacity=0)};
- svg.addEventListener("pointermove",mv);svg.addEventListener("pointerdown",mv);svg.addEventListener("pointerleave",lv)}
+ const lv=()=>{xh.style.opacity=0;tip.style.opacity=0;$$(".hd",sv).forEach(h=>h.style.opacity=0)};
+ sv.addEventListener("pointermove",mv);sv.addEventListener("pointerdown",mv);sv.addEventListener("pointerleave",lv)}
 /* ACT END */
 function dash(){
  const d=load(),R=d.records,now=Date.now(),soon=R.filter(r=>r.expiry&&new Date(r.expiry)>now&&new Date(r.expiry)-now<7776e6).length,c=s=>R.filter(r=>r.status===s).length,unp=d.violations.length;
  const rec=[...R].sort((a,b)=>b.id-a.id).slice(0,6);
- $("#panel").innerHTML=`<div class="kpis">${[["list","Total licenses",R.length],["wl","Active",c("Active")],["sus","Suspended",c("Suspended")],["rev","Revoked",c("Revoked")],["alm","Alarmed",c("Alarmed")]].map(x=>`<div class="kpi"><i>${svg(x[0])}</i><div><b>${x[2]}</b><span>${x[1]}</span></div></div>`).join("")}</div>
+ $("#panel").innerHTML=`<div class="card act" id="stacard">${chartHTML(d,CH.sta)}</div>
  ${pendRev(d).length?revCard(d):""}
- <div class="card act" id="actcard">${actHTML(d)}</div>
+ <div class="card act" id="actcard">${chartHTML(d,CH.act)}</div>
  <div class="card"><div class="cardh"><h3>Recently added</h3><button class="btn sm" id="n">+ Add license</button></div>
  ${rec.length?T(["Username","License No.","Codes","Status",""],rec.map(r=>[`<div class="tn"><span class="av">${esc(ini(r.name))}</span>${esc(r.name)||"Username pending"}</div>`,`<span class="num">${esc(r.licenseNo)||"—"}</span>`,esc((r.restr||[]).join(", "))||"—",`<span class="pill ${esc(r.status)}">${esc(r.status)}</span>`,`<button class="btn ghost sm" data-i="${r.id}">View</button>`])):'<div class="empty">No licenses yet. Add your first one.</div>'}</div>`;
- bindAct(d);bindRev();$("#n").onclick=()=>{tab="add";admin()};$$("[data-i]").forEach(b=>b.onclick=()=>info(+b.dataset.i))}
+ bindChart(d,CH.sta);bindChart(d,CH.act);bindRev();$("#n").onclick=()=>{tab="add";admin()};$$("[data-i]").forEach(b=>b.onclick=()=>info(+b.dataset.i))}
 function gen(){
  P(`<p class="note" style="margin:0 0 14px">Format: DL + 3 digits, 2 digits, 3 digits. New licenses also get a number automatically.</p><div id="out2"></div>
  <div class="tools"><button class="btn" id="g5">Generate 5 numbers</button><button class="btn ghost" id="gu">Use first in a new license</button></div>`);
@@ -1069,8 +1118,8 @@ function tSvg(v,h,S){
 const tkInline=(v,h,S)=>`<svg viewBox="0 0 ${TW} ${TH}" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI,Arial,sans-serif" style="width:100%;height:auto;display:block">${tSvg(v,h,S)}</svg>`;
 async function dlTicket(v,h,S){toast("Preparing ticket…");try{const sv=`<svg xmlns="http://www.w3.org/2000/svg" width="${TW}" height="${TH}" viewBox="0 0 ${TW} ${TH}" font-family="Segoe UI,Arial,sans-serif">${tSvg(v,h,S)}</svg>`,im=await loadImg("data:image/svg+xml;charset=utf-8,"+encodeURIComponent(sv));if(!im)throw 0;const c=document.createElement("canvas");c.width=TW*2;c.height=TH*2;{const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);g.drawImage(im,0,0,c.width,c.height)}c.toBlob(b=>{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=(v.tk||"citation-"+v.id)+".png";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)},"image/png")}catch{toast("Could not create the ticket image")}}
 function openTicket(id){const d=load(),v=d.violations.find(x=>String(x.id)===String(id));if(!v)return toast("Ticket not found");
- const h=d.records.find(r=>norm(r.licenseNo||"")===norm(v.licenseNo||"")),role=(sess()||{}).role,staff=role==="admin"||role==="staff";
- const md=mkModal(`<div style="max-height:68vh;overflow:auto;border-radius:12px;background:#fff">${tkInline(v,h,d.settings)}</div><div class="tools" style="margin:14px 0 0"><button class="btn" id="tkd">Download ticket</button>${staff?'<button class="btn red" id="tkv">Void ticket</button>':""}<button class="btn ghost" id="tkc">Close</button></div>${staff?'<p class="note" style="margin:10px 0 0">Download the image and send it to the violator on Discord. It also appears in their portal under VIOLATIONS.</p>':""}`);
+ const h=d.records.find(r=>norm(r.licenseNo||"")===norm(v.licenseNo||"")),role=(sess()||{}).role,staff=role==="admin"||role==="staff",off=role==="officer";
+ const md=mkModal(`<div style="max-height:68vh;overflow:auto;border-radius:12px;background:#fff">${tkInline(v,h,d.settings)}</div><div class="tools" style="margin:14px 0 0"><button class="btn" id="tkd">Download ticket</button>${staff?'<button class="btn red" id="tkv">Void ticket</button>':""}<button class="btn ghost" id="tkc">Close</button></div>${staff||off?'<p class="note" style="margin:10px 0 0">Download the image and send it to the violator on Discord. It also appears in their portal under VIOLATIONS.</p>':""}`);
  $("#tkc").onclick=()=>md.remove();$("#tkd").onclick=()=>dlTicket(v,h,d.settings);
  if(staff)$("#tkv").onclick=()=>{if(!confirm("Void this ticket? The violation and its demerit points will be removed."))return;const x=load();x.violations=x.violations.filter(y=>String(y.id)!==String(id));save(x);md.remove();toast("Ticket voided");if(typeof tab!=="undefined"&&tab==="viol")viol()}}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-tkt]");if(b)openTicket(b.dataset.tkt)});
@@ -1088,7 +1137,7 @@ function viol(){
   <div class="tools"><button class="btn" id="vs">Issue ticket</button><button class="btn ghost" id="vc">Cancel</button></div></div>`:'<div class="card"><div class="empty">Add a license first before recording a violation.<br><br><button class="btn sm" id="gl">Add a license</button></div></div>';
  $("#panel").innerHTML=form+(sr.length?`<div class="card"><div class="cardh"><h3>Demerit standing</h3></div>${T(["License holder","License No.","Violations","Demerit points","Standing"],sr.map(o=>{const s=standing(o.n);return[esc(o.r.name||"No username"),`<span class="num">${esc(o.r.licenseNo)}</span>`,o.c,`<b>${o.n}</b>`,`<span class="pill ${s.c}">${s.l}</span>`]}))}<p class="note">Good standing 0-5 · Warning 6-11 · Suspension review 12 and above. Violations are cleared only when the license is renewed.</p></div>`:"")+`<div class="card"><div class="cardh"><h3>Citation tickets <span style="color:var(--mu);font-weight:400">· ${V.length}</span></h3><button class="btn sm" id="va">+ Issue ticket</button></div>
  ${V.length?T(["Date","License holder","License No.","Violation","Demerit pts","Ticket"],V.map(v=>{const h=R.find(r=>norm(r.licenseNo||"")===norm(v.licenseNo));return[esc(v.date),esc(h?h.name||"No username":"Unknown"),`<span class="num">${esc(v.licenseNo)}</span>`,esc(v.title)+(v.notes?`<br><small style="color:var(--mu)">${esc(v.notes)}</small>`:""),`<span class="pill ${sev(pts(v))}">+${pts(v)}</span>`,`<button class="btn ghost sm" data-tkt="${v.id}">${esc(v.tk||"View")} · Open</button>`]})):'<div class="empty">No violations recorded.</div>'}</div>`;
- if($("#gl"))$("#gl").onclick=()=>{vAdd=false;tab="add";admin()};
+ if($("#gl")){if((sess()||{}).role==="officer")$("#gl").remove();else $("#gl").onclick=()=>{vAdd=false;tab="add";admin()}};
  $("#va").onclick=()=>{vAdd=true;vSel="";viol();$("#panel").scrollIntoView({behavior:"smooth"})};
  if(vAdd&&R.length){$("#v_date").value=today();$$("#v_list input").forEach(i=>i.onchange=()=>{const t=$$("#v_list input:checked").reduce((a,c)=>a+VPTS[c.value],0);$("#v_tot").innerHTML="<b>Total: "+t+" demerit points</b>"});{const n=new Date();$("#v_time").value=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");$("#v_by").value=sget("localStorage","to_officer")||""}$("#vc").onclick=()=>{vAdd=false;vSel="";viol()};
   const res=()=>{const qq=$("#v_q").value.toLowerCase(),L=R.filter(r=>[r.name,r.licenseNo,r.email].join(" ").toLowerCase().includes(qq)).slice(0,8);
@@ -1143,31 +1192,46 @@ function collapsify(){
   h.addEventListener("click",e=>{if(e.target.closest("button,input,select,a,label"))return;tog()});
   h.addEventListener("keydown",e=>{if(e.target!==h)return;if(e.key==="Enter"||e.key===" "){e.preventDefault();tog()}});
  })}
-/* ===== EXAM QUESTIONS (inside Settings) ===== */
+/* ===== EXAM QUESTIONS: summary card in Settings + separate full-screen editor ===== */
+let xcat="All";
 function examQ(){
- const d=load(),B=bankOf(d),n=B.length;let form="";if(eEdit!==null)CFGC["Exam Questions"]=0;
- if(eEdit!==null){const q=eEdit==="new"?{cat:"Road",q:"",o:["","","",""],a:0}:(B.find(x=>String(x.id)===String(eEdit))||{cat:"Road",q:"",o:["","","",""],a:0});
-  const fv=(id,l,v)=>fld(id,l).replace('placeholder=" "','placeholder=" " value="'+esc(v)+'"');
-  form=`<div id="xform" style="border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:16px;background:#ffffff08"><h4 style="margin:0 0 12px;font-size:.95rem;color:var(--pr2)">${eEdit==="new"?"New question":"Edit question"}</h4>
-  <div class="fld"><select id="x_cat">${CATS.map(c=>`<option ${q.cat===c?"selected":""}>${c}</option>`).join("")}</select><label>Category</label></div>
-  ${fv("x_q","Question",q.q)}<div class="grid">${[0,1,2,3].map(i=>fv("x_o"+i,"Option "+"ABCD"[i],q.o[i]||"")).join("")}</div>
-  <div class="fld"><select id="x_a">${[0,1,2,3].map(i=>`<option value="${i}" ${q.a===i?"selected":""}>Option ${"ABCD"[i]}</option>`).join("")}</select><label>Correct answer</label></div>
-  <div class="tools" style="margin:0"><button class="btn" id="xs">Save question</button><button class="btn ghost" id="xc">Cancel</button></div></div>`}
- $("#exq").innerHTML=`<div class="card"><div class="cardh"><h3>Exam Questions <span style="color:var(--mu);font-weight:400">· ${n}</span></h3><div class="tools" style="margin:0"><button class="btn ghost sm" id="xr">Reset to default</button><button class="btn sm" id="xa">+ Add question</button></div></div>
-  <p class="note" style="margin:0 0 12px">Each renewal test picks 30 random questions from this bank. ${n<30?`<b style="color:var(--er)">Add at least ${30-n} more question(s) so every test has 30 questions.</b>`:"Keep at least 30 questions so every test has 30."}</p>
-  ${form}<div class="tools">${fld("xq","Search questions").replace('placeholder=" "','placeholder=" " value="'+esc(eq)+'"')}</div><div id="xlist"></div></div>`;
- collapsify();
- const fill=()=>{const L=B.filter(x=>(x.q+" "+x.cat).toLowerCase().includes(eq.toLowerCase()));
-  $("#xlist").innerHTML=L.length?T(["#","Category","Question","Correct answer",""],L.map((x,i)=>[i+1,`<span class="pill">${esc(x.cat)}</span>`,esc(x.q),esc(x.o[x.a]),`<button class="btn ghost sm" data-xe="${x.id}">Edit</button><button class="btn red sm" data-xd="${x.id}">Delete</button>`])):'<div class="empty">No questions found.</div>';
-  $$("[data-xe]").forEach(b=>b.onclick=()=>{eEdit=b.dataset.xe;examQ();$("#exq").scrollIntoView({behavior:"smooth"})});
-  $$("[data-xd]").forEach(b=>b.onclick=()=>{if(!confirm("Delete this question?"))return;const x=load();x.exam=bankOf(x).map(q=>({...q,o:[...q.o]})).filter(q=>String(q.id)!==b.dataset.xd);save(x);toast("Question deleted");examQ()})};
- fill();$("#xq").oninput=e=>{eq=e.target.value;fill()};
- $("#xa").onclick=()=>{eEdit="new";examQ();$("#exq").scrollIntoView({behavior:"smooth"})};
- $("#xr").onclick=()=>{if(!confirm("Replace all questions with the default set? Your edits will be lost."))return;const x=load();delete x.exam;save(x);eEdit=null;toast("Default questions restored");examQ()};
- if(eEdit!==null){$("#xc").onclick=()=>{eEdit=null;examQ()};
-  $("#xs").onclick=()=>{const q=$("#x_q").value.trim(),o=[0,1,2,3].map(i=>$("#x_o"+i).value.trim());if(!q)return toast("Enter the question");if(o.some(v=>!v))return toast("Fill in all four options");
-   const x=load(),arr=bankOf(x).map(z=>({...z,o:[...z.o]})),old=eEdit==="new"?null:arr.find(z=>String(z.id)===String(eEdit)),item={id:old?old.id:Date.now(),cat:$("#x_cat").value,q,o,a:+$("#x_a").value},i=arr.findIndex(z=>String(z.id)===String(item.id));
-   i>=0?arr[i]=item:arr.push(item);x.exam=arr;save(x);eEdit=null;toast("Question saved");examQ()}}}
+ const n=bankOf(load()).length;
+ $("#exq").innerHTML=`<div class="card" data-cc="1"><div class="cardh"><h3>Exam Questions <span style="color:var(--mu);font-weight:400">· ${n}</span></h3><button class="btn sm" id="xopen">Open question editor</button></div>
+ <p class="note" style="margin:0">Each renewal test picks 30 random questions from this bank. ${n<30?`<b style="color:var(--er)">Add at least ${30-n} more question(s) so every test has 30 questions.</b>`:"Keep at least 30 questions so every test has 30."} Questions are edited in their own screen.</p></div>`;
+ $("#xopen").onclick=()=>{eEdit=null;eq="";xcat="All";xEditor()}}
+function xClose(){const o=$("#xov");if(o)o.remove();document.body.classList.remove("xlock");eEdit=null;if($("#exq"))examQ()}
+function xEditor(){
+ let ov=$("#xov");if(!ov){ov=document.createElement("div");ov.id="xov";ov.setAttribute("role","dialog");ov.setAttribute("aria-label","Exam question editor");document.body.appendChild(ov);document.body.classList.add("xlock")}
+ const keep=($(".xbody",ov)||{}).scrollTop||0,B=bankOf(load()),n=B.length;let sheet="";
+ if(eEdit!==null){const q=eEdit==="new"?{cat:xcat!=="All"?xcat:"Road",q:"",o:["","","",""],a:0}:(B.find(x=>String(x.id)===String(eEdit))||{cat:"Road",q:"",o:["","","",""],a:0});
+  sheet=`<div class="xsb" id="xsb"><form class="xsheet" id="xform" autocomplete="off"><h3>${eEdit==="new"?"New question":"Edit question"}</h3>
+  <span class="xl">Category</span><div class="xcats">${CATS.map(c=>`<label><input type="radio" name="x_cat" value="${c}" ${q.cat===c?"checked":""}><span>${c}</span></label>`).join("")}</div>
+  <label class="xl" for="x_q">Question</label><textarea id="x_q" class="xin" rows="3" placeholder="Type the question">${esc(q.q)}</textarea>
+  <span class="xl">Answer options · select the correct one</span>
+  ${[0,1,2,3].map(i=>`<div class="xopt"><label class="xr"><input type="radio" name="x_a" value="${i}" ${q.a===i?"checked":""} aria-label="Correct answer is option ${"ABCD"[i]}"><span>${"ABCD"[i]}</span></label><input class="xin" id="x_o${i}" placeholder="Option ${"ABCD"[i]}" value="${esc(q.o[i]||"")}"></div>`).join("")}
+  <div class="tools" style="margin:16px 0 0"><button class="btn" type="submit">Save question</button><button class="btn ghost" type="button" id="xc">Cancel</button></div></form></div>`}
+ ov.innerHTML=`<header class="xhead"><button class="btn ghost sm" id="xback">← Settings</button><div class="xt"><h2>Exam question editor</h2><small>${n} questions · each test draws 30 at random</small></div><div class="xact"><button class="btn ghost sm" id="xr">Reset to default</button><button class="btn sm" id="xa">+ New question</button></div></header>
+ <div class="xbody">${n<30?`<div class="xwarn">Add at least ${30-n} more question(s) so every test has 30 questions.</div>`:""}
+ <div class="xtools"><div class="fld"><input id="xq" placeholder=" " value="${esc(eq)}" autocomplete="off"><label for="xq">Search questions</label></div><div class="xchips" id="xchips">${["All",...CATS].map(c=>`<button type="button" data-c="${c}" class="${xcat===c?"on":""}">${c}</button>`).join("")}</div></div>
+ <div class="xgrid" id="xlist"></div></div>${sheet}`;
+ $(".xbody",ov).scrollTop=keep;
+ const fill=()=>{const k=eq.toLowerCase(),L=B.map((x,i)=>({x,i})).filter(({x})=>(xcat==="All"||x.cat===xcat)&&(x.q+" "+x.cat+" "+x.o.join(" ")).toLowerCase().includes(k));
+  $("#xlist").innerHTML=L.length?L.map(({x,i})=>`<article class="xq"><div class="xqh"><span class="pill">${esc(x.cat)}</span><span class="xn">#${i+1}</span></div><p>${esc(x.q)}</p><ol class="xo">${x.o.map((o,j)=>`<li class="${j===x.a?"ok":""}"><b>${"ABCD"[j]}</b><span>${esc(o)}</span></li>`).join("")}</ol><div class="xqa"><button class="btn ghost sm" data-xe="${x.id}">Edit</button><button class="btn red sm" data-xd="${x.id}">Delete</button></div></article>`).join(""):'<div class="empty" style="grid-column:1/-1">No questions found.</div>';
+  $$("[data-xe]",ov).forEach(b=>b.onclick=()=>{eEdit=b.dataset.xe;xEditor()});
+  $$("[data-xd]",ov).forEach(b=>b.onclick=()=>{if(!confirm("Delete this question?"))return;const x=load();x.exam=bankOf(x).map(q=>({...q,o:[...q.o]})).filter(q=>String(q.id)!==b.dataset.xd);save(x);toast("Question deleted");xEditor()})};
+ fill();
+ $("#xq").oninput=e=>{eq=e.target.value;fill()};
+ $$("#xchips button").forEach(b=>b.onclick=()=>{xcat=b.dataset.c;$$("#xchips button").forEach(z=>z.classList.toggle("on",z===b));fill()});
+ $("#xback").onclick=xClose;
+ $("#xa").onclick=()=>{eEdit="new";xEditor()};
+ $("#xr").onclick=()=>{if(!confirm("Replace all questions with the default set? Your edits will be lost."))return;const x=load();delete x.exam;save(x);eEdit=null;toast("Default questions restored");xEditor()};
+ if(eEdit!==null){$("#xc").onclick=()=>{eEdit=null;xEditor()};$("#xsb").onclick=e=>{if(e.target.id==="xsb"){eEdit=null;xEditor()}};
+  $("#xform").onsubmit=e=>{e.preventDefault();const q=$("#x_q").value.trim(),o=[0,1,2,3].map(i=>$("#x_o"+i).value.trim());if(!q)return toast("Enter the question");if(o.some(v=>!v))return toast("Fill in all four options");
+   const x=load(),arr=bankOf(x).map(z=>({...z,o:[...z.o]})),old=eEdit==="new"?null:arr.find(z=>String(z.id)===String(eEdit)),
+    item={id:old?old.id:Date.now(),cat:(document.querySelector('input[name="x_cat"]:checked')||{}).value||"Road",q,o,a:+(document.querySelector('input[name="x_a"]:checked')||{value:0}).value},i=arr.findIndex(z=>String(z.id)===String(item.id));
+   i>=0?arr[i]=item:arr.push(item);x.exam=arr;save(x);eEdit=null;toast("Question saved");xEditor()};
+  setTimeout(()=>{const f=$("#x_q");if(f)f.focus()},60)}}
+document.addEventListener("keydown",e=>{if(e.key!=="Escape"||!$("#xov"))return;if(eEdit!==null){eEdit=null;xEditor()}else xClose()});
 
 /* ===== AVIATION UNIT ===== */
 const ARANK=["Student Pilot","Private Pilot","Commercial Pilot","Airline Transport Pilot"],ARAT=["Single-Engine","Multi-Engine","Jet","Helicopter","Seaplane","Instrument (IFR)"],ASTAT=["Active","Pending","Suspended","Revoked"];
@@ -1248,7 +1312,7 @@ function dbPanel(){
   eyes();const go=()=>{const w=Math.ceil((dbLock-Date.now())/1000);if(w>0){$("#pne").textContent="Too many attempts. Try again in "+w+"s.";return}
    if($("#pn").value===DB_PIN){dbOk=true;dbBad=0;dbPanel()}else{dbBad++;$("#pn").value="";if(dbBad>=3){dbLock=Date.now()+30000;dbBad=0;$("#pne").textContent="Too many attempts. Locked for 30 seconds."}else $("#pne").textContent="Incorrect PIN."}};
   $("#pgo").onclick=go;$("#pn").onkeydown=e=>{if(e.key==="Enter")go()};setTimeout(()=>{const i=$("#pn");if(i)i.focus()},50);return}
- const d=load(),L=Object.keys(d.accounts).filter(e=>d.accounts[e].role!=="staff"),S=Object.keys(d.accounts).filter(e=>d.accounts[e].role==="staff");
+ const d=load(),L=Object.keys(d.accounts).filter(e=>d.accounts[e].role!=="staff"&&d.accounts[e].role!=="officer"),S=Object.keys(d.accounts).filter(e=>d.accounts[e].role==="staff"||d.accounts[e].role==="officer");
  const match=e=>!dbQ||e.includes(dbQ.toLowerCase())||((d.records.find(r=>r.email===e)||{}).name||"").toLowerCase().includes(dbQ.toLowerCase());
  const row=e=>{const a=d.accounts[e],r=d.records.find(x=>x.email===e)||{};
   return[esc(e),esc(r.name)||"—",`<span class="num">${esc(r.licenseNo)||"—"}</span>`,esc((a.created||"").slice(0,10))||"—",
@@ -1262,7 +1326,7 @@ function dbPanel(){
  ${S.length?`<div class="cardh" style="margin-top:22px"><h3>Staff accounts <span style="color:var(--mu);font-weight:400">· ${S.length}</span></h3></div>${tbl(S.filter(match),"staff")}`:""}`);
  const q2=$("#dq");q2.oninput=()=>{dbQ=q2.value;dbPanel();const n=$("#dq");n.focus();n.setSelectionRange(dbQ.length,dbQ.length)};
  $("#dlk").onclick=()=>{dbOk=false;dbShow={};dbPanel()};
- $$("[data-dl]").forEach(b=>b.onclick=()=>{const e=b.dataset.dl;if(!confirm("Remove "+e+"? They will lose access. (To delete their sign-in completely, remove the user in Firebase console > Authentication.)"))return;const x=load();delete x.accounts[e];x.whitelist=x.whitelist.filter(y=>y!==e);x.staff=x.staff.filter(y=>y!==e);save(x);toast("Account removed");dbPanel()});
+ $$("[data-dl]").forEach(b=>b.onclick=()=>{const e=b.dataset.dl;if(!confirm("Remove "+e+"? They will lose access. (To delete their sign-in completely, remove the user in Firebase console > Authentication.)"))return;const x=load();delete x.accounts[e];x.whitelist=x.whitelist.filter(y=>y!==e);x.staff=x.staff.filter(y=>y!==e);x.officers=(x.officers||[]).filter(y=>y!==e);save(x);toast("Account removed");dbPanel()});
  $$("[data-rs]").forEach(b=>b.onclick=async()=>{try{await AUTH.sendPasswordResetEmail(b.dataset.rs);toast("Reset link sent to "+b.dataset.rs)}catch{toast("Could not send reset link")}});
  $("#dx").onclick=()=>{try{const rows=[["Gmail","Name","License No","Role","Created"],...[...L,...S].map(e=>{const a=d.accounts[e],r=d.records.find(x=>x.email===e)||{};return[e,r.name,r.licenseNo,a.role,a.created||""]})];
   const csv=rows.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\n"),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="accounts.csv";a.click()}catch{toast("Export not supported here")}}}
@@ -1272,13 +1336,19 @@ function whitelist(){
  <p class="note" style="margin:0 0 14px">Only Gmails listed here can create a staff account and use the database. Remove a Gmail to revoke that person’s access. The administrator login is yours alone.</p>
  <div class="tools">${fld("se","Staff Gmail","email")}<button class="btn" id="sa">Add staff</button></div>
  ${d.staff.length?T(["Staff Gmail","Account",""],d.staff.map(e=>[esc(e),`<span class="pill ${d.accounts[e]?"Active":""}">${d.accounts[e]?"Created":"Not yet"}</span>`,`<button class="btn red sm" data-s="${esc(e)}">Revoke access</button>`])):'<div class="empty">No staff added yet.</div>'}</div>
+ <div class="card"><div class="cardh"><h3>Whitelist · Violation officers <span style="color:var(--mu);font-weight:400">· ${d.officers.length}</span></h3></div>
+ <p class="note" style="margin:0 0 14px">Personnel listed here can sign in and use the Violations section only, to write citation tickets. They cannot see licenses, exams, settings or anything else. They create their account from the same staff sign-up screen.</p>
+ <div class="tools">${fld("oe","Officer Gmail","email")}<button class="btn" id="oa">Add officer</button></div>
+ ${d.officers.length?T(["Officer Gmail","Account",""],d.officers.map(e=>[esc(e),`<span class="pill ${d.accounts[e]?"Active":""}">${d.accounts[e]?"Created":"Not yet"}</span>`,`<button class="btn red sm" data-o="${esc(e)}">Revoke access</button>`])):'<div class="empty">No officers added yet.</div>'}</div>
  <div class="card"><div class="cardh"><h3>Whitelist · Licensee accounts <span style="color:var(--mu);font-weight:400">· ${d.whitelist.length}</span></h3></div>
  <p class="note" style="margin:0 0 14px">Licensees are whitelisted automatically when they create an account. Removing one blocks sign-in and deletes their password.</p>
  <div class="tools">${fld("ne","Pre-approve a licensee Gmail","email")}<button class="btn" id="ad">Add</button></div>
  ${d.whitelist.length?T(["Gmail","Account",""],d.whitelist.map(e=>[esc(e),`<span class="pill ${d.accounts[e]?"Active":""}">${d.accounts[e]?"Created":"Not yet"}</span>`,`<button class="btn red sm" data-r="${esc(e)}">Remove</button>`])):'<div class="empty">Whitelist is empty.</div>'}</div>`;
  collapsify();
- $("#sa").onclick=()=>{const e=$("#se").value.trim().toLowerCase();if(!isGmail(e))return toast("Enter a valid @gmail.com address");const x=load();if(x.staff.includes(e))return toast("Already on the staff list");x.staff.push(e);save(x);toast("Staff added");whitelist()};
+ $("#sa").onclick=()=>{const e=$("#se").value.trim().toLowerCase();if(!isGmail(e))return toast("Enter a valid @gmail.com address");const x=load();if(x.staff.includes(e))return toast("Already on the staff list");if(x.officers.includes(e))return toast("Already on the officer list. Revoke it there first.");x.staff.push(e);save(x);toast("Staff added");whitelist()};
  $$("[data-s]").forEach(b=>b.onclick=()=>{if(!confirm("Revoke staff access for "+b.dataset.s+"?"))return;const x=load();x.staff=x.staff.filter(y=>y!==b.dataset.s);if(x.accounts[b.dataset.s]&&x.accounts[b.dataset.s].role==="staff")delete x.accounts[b.dataset.s];save(x);toast("Access revoked");whitelist()});
+ $("#oa").onclick=()=>{const e=$("#oe").value.trim().toLowerCase();if(!isGmail(e))return toast("Enter a valid @gmail.com address");const x=load();if(x.officers.includes(e))return toast("Already on the officer list");if(x.staff.includes(e))return toast("This Gmail is on the full staff list. Revoke it there first.");x.officers.push(e);save(x);toast("Officer added");whitelist()};
+ $$("[data-o]").forEach(b=>b.onclick=()=>{if(!confirm("Revoke violation-officer access for "+b.dataset.o+"?"))return;const x=load();x.officers=x.officers.filter(y=>y!==b.dataset.o);if(x.accounts[b.dataset.o]&&x.accounts[b.dataset.o].role==="officer")delete x.accounts[b.dataset.o];save(x);toast("Access revoked");whitelist()});
  $("#ad").onclick=()=>{const e=$("#ne").value.trim().toLowerCase();if(!isGmail(e))return toast("Enter a valid @gmail.com address");const x=load();if(!x.whitelist.includes(e))x.whitelist.push(e);save(x);toast("Added");whitelist()};
  $$("[data-r]").forEach(b=>b.onclick=()=>{if(!confirm("Remove "+b.dataset.r+"?"))return;const x=load();x.whitelist=x.whitelist.filter(y=>y!==b.dataset.r);delete x.accounts[b.dataset.r];save(x);toast("Removed");whitelist()})}
 
